@@ -21,6 +21,10 @@
   ],
   "author": "Cheng",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chengchuu/aliyunoss-cli/issues"
+  },
+  "homepage": "https://github.com/chengchuu/aliyunoss-cli",
   "devDependencies": {
     "@types/ali-oss": "^6.0.5",
     "@types/minimist": "^1.2.0",
