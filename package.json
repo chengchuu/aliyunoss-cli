@@ -12,6 +12,10 @@
     "test": "echo \"Tests are on the way.\"",
     "build": "echo \"Skip build step.\""
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chengchuu/aliyunoss-cli.git"
+  },
   "keywords": [
     "upload",
     "ali",
@@ -24,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/chengchuu/aliyunoss-cli/issues"
   },
-  "homepage": "https://github.com/chengchuu/aliyunoss-cli",
+  "homepage": "https://github.com/chengchuu/aliyunoss-cli#readme",
   "devDependencies": {
     "@types/ali-oss": "^6.0.5",
     "@types/minimist": "^1.2.0",
