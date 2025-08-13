@@ -1,7 +1,7 @@
 name: Publish npm Package
 
 env:
-  NODE_VERSION: '14'
+  NODE_VERSION: '16'
 
 on:
   push:
