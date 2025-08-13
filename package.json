@@ -1,6 +1,6 @@
 {
   "name": "aliyunoss-cli",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Alibaba Cloud OSS file upload CLI.",
   "main": "lib/index.js",
   "bin": {
@@ -8,7 +8,9 @@
   },
   "scripts": {
     "build:tsc": "npx tsc src/index.ts --outDir bin",
-    "release:dev": "node bin/index.js --releaseEnv dev"
+    "release:dev": "node bin/index.js --releaseEnv dev",
+    "test": "echo \"Tests are on the way.\"",
+    "build": "echo \"Skip build step.\""
   },
   "keywords": [
     "upload",
@@ -17,8 +19,12 @@
     "oss",
     "cli"
   ],
-  "author": "MazeyQian",
+  "author": "Cheng",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chengchuu/aliyunoss-cli/issues"
+  },
+  "homepage": "https://github.com/chengchuu/aliyunoss-cli",
   "devDependencies": {
     "@types/ali-oss": "^6.0.5",
     "@types/minimist": "^1.2.0",
