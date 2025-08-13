@@ -6,7 +6,7 @@
 [npm-image]: https://img.shields.io/npm/v/aliyunoss-cli
 [npm-url]: https://npmjs.org/package/aliyunoss-cli
 [l-image]: https://img.shields.io/npm/l/aliyunoss-cli
-[l-url]: https://github.com/mazeyqian/aliyunoss-cli
+[l-url]: https://github.com/chengchuu/aliyunoss-cli
 
 阿里云 OSS 文件上传 CLI。
 
@@ -14,7 +14,7 @@
 
 You can get aliyunoss-cli via [npm](http://npmjs.com).
 
-```
+```bash
 npm install aliyunoss-cli --save-dev
 ```
 
@@ -22,7 +22,7 @@ npm install aliyunoss-cli --save-dev
 
 创建配置文件 `alioss.config.json`：
 
-```
+```json
 {
   "region": "-",
   "accessKeyId": "-",
@@ -47,7 +47,7 @@ npm install aliyunoss-cli --save-dev
 
 运行：
 
-```
+```bash
 # 测试
 npx aliyunoss-cli --releaseEnv dev
 # 预发布
@@ -58,7 +58,7 @@ npx aliyunoss-cli --releaseEnv prd
 
 更多命令 `npx aliyunoss-cli --help`：
 
-```
+```plain
 Usage: aliyunoss-cli [options]
 --help               查看帮助
 --version            查看版本
@@ -74,4 +74,4 @@ Usage: aliyunoss-cli [options]
 
 ## thx
 
-[Jeremy Liang](https://github.com/whoopschat) 
+[Jeremy Liang](https://github.com/whoopschat)
