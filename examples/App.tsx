@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import OSS from "aliyunoss-cli";
 
-interface PlaygroundResult {
+interface ExampleResult {
   bucket: string;
   region: string;
   secure: boolean;
@@ -13,7 +13,7 @@ export function App() {
   const [bucket, setBucket] = useState("example-bucket");
   const [timeout, setTimeoutValue] = useState("60000");
   const [secure, setSecure] = useState(true);
-  const [result, setResult] = useState<PlaygroundResult | null>(null);
+  const [result, setResult] = useState<ExampleResult | null>(null);
   const [error, setError] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -40,8 +40,8 @@ export function App() {
       new OSS({
         region: trimmedRegion,
         bucket: trimmedBucket,
-        accessKeyId: "playground-access-key-id",
-        accessKeySecret: "playground-access-key-secret",
+        accessKeyId: "example-access-key-id",
+        accessKeySecret: "example-access-key-secret",
         secure,
         timeout: timeoutValue,
       });
@@ -61,7 +61,7 @@ export function App() {
   };
 
   return (
-    <div className="playground-panel">
+    <div className="examples-panel">
       <form className="row g-3" onSubmit={handleSubmit} noValidate>
         <div className="col-md-6">
           <label className="form-label" htmlFor="oss-region">
@@ -127,7 +127,7 @@ export function App() {
           </button>
         </div>
       </form>
-      <div className="playground-feedback mt-4" aria-live="polite">
+      <div className="examples-feedback mt-4" aria-live="polite">
         {error && (
           <p className="alert alert-danger mb-0" role="alert">
             {error}

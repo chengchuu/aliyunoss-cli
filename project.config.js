@@ -20,11 +20,11 @@ const pages = {
       "Configure and run aliyunoss-cli to recursively upload a local directory to Alibaba Cloud OSS with environment-specific source and target paths.",
     url: siteUrl.href,
   },
-  playground: {
-    title: "aliyunoss-cli Playground - Configure an OSS client",
+  examples: {
+    title: "aliyunoss-cli Examples - Configure an OSS client",
     description:
       "Use the aliyunoss-cli package root to configure an Alibaba Cloud OSS client in the browser without sending files or network requests.",
-    url: new URL("playground/", siteUrl).href,
+    url: new URL("examples/", siteUrl).href,
   },
   api: {
     title: "aliyunoss-cli API Documentation",
@@ -111,12 +111,12 @@ module.exports = deepFreeze({
       alt: "aliyunoss-cli project logo on an abstract technology background.",
     },
     rootJsonLd: { "@context": "https://schema.org", ...software },
-    playgroundJsonLd: {
+    examplesJsonLd: {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "aliyunoss-cli OSS client playground",
-      description: pages.playground.description,
-      url: pages.playground.url,
+      name: "aliyunoss-cli OSS client examples",
+      description: pages.examples.description,
+      url: pages.examples.url,
       isPartOf: {
         "@type": "WebSite",
         name: pkg.name,
@@ -129,7 +129,7 @@ module.exports = deepFreeze({
     name: "aliyunoss-cli documentation",
     shortName: "Aliyun OSS CLI",
     description:
-      "Project website, browser playground, and API documentation for aliyunoss-cli.",
+      "Project website, browser examples, and API documentation for aliyunoss-cli.",
     display: "standalone",
     backgroundColor: theme.colorLight,
     themeColor: theme.colorPrimary,

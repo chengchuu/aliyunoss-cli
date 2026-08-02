@@ -17,7 +17,7 @@ test("theme controls delegate preference behavior to Mazey", () => {
   assert.doesNotMatch(source, /localStorage\.(?:getItem|setItem)/);
 });
 
-test("playground uses the package root and contains no OSS operation call", () => {
+test("examples use the package root and contain no OSS operation call", () => {
   const source = fs.readFileSync(path.join(root, "examples/App.tsx"), "utf8");
   assert.match(source, /from "aliyunoss-cli"/);
   assert.doesNotMatch(source, /\.put\s*\(|\.multipartUpload\s*\(/);

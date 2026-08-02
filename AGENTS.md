@@ -6,7 +6,7 @@ Guidance for automated coding agents working in this repository.
 
 `aliyunoss-cli` is a Node.js command-line tool for recursively uploading a local directory to
 Alibaba Cloud OSS. The repository also contains a documentation website and no-network browser
-playground. Keep published runtime changes focused on the CLI, its configuration precedence,
+examples. Keep published runtime changes focused on the CLI, its configuration precedence,
 upload behavior, and package-root contract; website code must remain build-time only.
 
 Inspect `git status` before editing. Preserve unrelated work, and do not commit, tag, publish, or
@@ -23,7 +23,7 @@ rewrite history unless the user explicitly asks.
 - `src/library.ts`: canonical source for the package-root `ali-oss` re-export.
 - `lib/index.js`: committed CommonJS package root generated from `src/library.ts` by Rollup.
 - `project.config.js`: central package, site, SEO, theme, PWA, and URL configuration.
-- `site/` and `examples/`: Bootstrap website, shared browser behavior, and React playground source.
+- `site/` and `examples/`: Bootstrap website, shared browser behavior, and React examples source.
 - `scripts/`: Rollup, Webpack, Pages assembly, and artifact validation code.
 - `images/`: source logo, favicon, social image, and PWA icons.
 - `dist-dev/`, `docs/`, and `coverage/`: generated output; never edit these directories manually.
@@ -60,7 +60,7 @@ The website is separate from the published CLI runtime.
 - `site/shared.ts` initializes Bootstrap navigation, Mazey-based theme handling, and website-only
   PWA behavior for every primary route.
 - `site/index.ts` handles the homepage install-command copy action.
-- `examples/App.tsx` renders the playground and constructs the public package-root OSS client with
+- `examples/App.tsx` renders the examples page and constructs the public package-root OSS client with
   placeholder credentials. It must never call upload methods or issue network requests.
 - TypeDoc owns API HTML generation. `scripts/build-pages.cjs` applies deterministic metadata and
   navigation enhancements before assembling the final `docs/` artifact. The Pages cache version
@@ -104,14 +104,14 @@ For TypeScript changes, run `npm run build:tsc`, inspect the resulting `bin` dif
 CLI paths such as `node bin/index.js --help`. Do not run a real upload without an explicit request
 and suitable non-secret test configuration. For package-facing changes, also run
 `npm pack --dry-run` and confirm the expected `bin`, `lib`, README, license, and metadata are
-included. For site work, validate the final `docs/index.html`, `docs/playground/index.html`, and
+included. For site work, validate the final `docs/index.html`, `docs/examples/index.html`, and
 `docs/api/index.html`, not only the source templates.
 
 ## Change Discipline
 
 - Keep compatibility with the existing CommonJS executable output and the `aliyunoss-cli` bin name.
 - Keep Rollup responsible for `lib/index.js`, TSC responsible for `bin/`, Webpack responsible for
-  the website and playground, TypeDoc responsible for API HTML, and the Pages script responsible
+  the website and examples, TypeDoc responsible for API HTML, and the Pages script responsible
   for `docs/` assembly.
 - Update `README.md` when flags, precedence, required fields, output, or setup changes.
 - Add deterministic tests before changing traversal, retries, path mapping, or async completion.

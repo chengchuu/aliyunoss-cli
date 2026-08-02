@@ -3,8 +3,8 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import "./styles.css";
 
-const root = document.getElementById("playground-root");
-if (!root) throw new Error("The playground root element is missing.");
+const root = document.getElementById("examples-root");
+if (!root) throw new Error("The examples root element is missing.");
 
 createRoot(root).render(
   <StrictMode>

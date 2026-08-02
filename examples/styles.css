@@ -1,4 +1,4 @@
-.playground-panel {
+.examples-panel {
   max-width: 56rem;
   padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid var(--bs-border-color);

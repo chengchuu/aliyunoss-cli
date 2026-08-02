@@ -137,15 +137,36 @@ function validatePage(label, file, expected) {
 
 validatePage("Homepage", path.join(docs, "index.html"), config.site.pages.home);
 validatePage(
-  "Playground",
-  path.join(docs, "playground", "index.html"),
-  config.site.pages.playground,
+  "Examples",
+  path.join(docs, "examples", "index.html"),
+  config.site.pages.examples,
 );
 
 for (const file of filesIn(docs).filter((entry) => entry.endsWith(".html"))) {
   const html = fs.readFileSync(file, "utf8");
   validateLocalReferences(file, html);
   if (file.startsWith(path.join(docs, "api"))) {
+    if (html.includes("api-project-header"))
+      fail(`${path.relative(docs, file)}: contains the surplus project header`);
+    const toolbarLinks = html.match(
+      /<nav\b[^>]*class=["'][^"']*site-project-links[^"']*["'][^>]*>[\s\S]*?<\/nav>/i,
+    )?.[0];
+    if (!toolbarLinks) {
+      fail(
+        `${path.relative(docs, file)}: missing native toolbar project links`,
+      );
+    } else {
+      for (const url of [
+        config.site.basePath,
+        `${config.site.basePath}examples/`,
+        `${config.site.basePath}api/`,
+        config.urls.github,
+        config.urls.npm,
+      ]) {
+        if (!toolbarLinks.includes(`href="${url}"`))
+          fail(`${path.relative(docs, file)}: toolbar is missing ${url}`);
+      }
+    }
     const h1Count = [...html.matchAll(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi)].length;
     if (h1Count !== 1)
       fail(`${path.relative(docs, file)}: expected one h1, found ${h1Count}`);
@@ -184,5 +205,5 @@ else if (
 if (failures.length)
   throw new Error(`SEO validation failed:\n- ${failures.join("\n- ")}`);
 console.log(
-  "SEO validation passed for the homepage, playground, and API overview.",
+  "SEO validation passed for the homepage, examples, and API overview.",
 );
