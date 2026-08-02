@@ -12,7 +12,9 @@
 
 ## Install
 
-You can get aliyunoss-cli via [npm](http://npmjs.com).
+开发和构建需要 Node.js 22。macOS ARM64 可以直接使用 Node.js 官方 ARM64 版本，无需 Rosetta 或原生模块编译环境。
+
+通过 [npm](https://www.npmjs.com/) 安装 aliyunoss-cli：
 
 ```bash
 npm install aliyunoss-cli --save-dev
@@ -54,6 +56,21 @@ npx aliyunoss-cli --releaseEnv dev
 npx aliyunoss-cli --releaseEnv pre
 # 生产
 npx aliyunoss-cli --releaseEnv prd
+```
+
+## Development
+
+```bash
+npm install
+npm run lint
+npm test
+npm run build
+```
+
+本项目是 CLI 工具，不包含前端开发服务器。使用以下命令验证 CLI 启动流程，命令不会上传文件：
+
+```bash
+npm run release:dev -- --help
 ```
 
 更多命令 `npx aliyunoss-cli --help`：

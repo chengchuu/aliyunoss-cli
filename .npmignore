@@ -1,4 +1,6 @@
 *.yml
+.nvmrc
+AGENTS.md
 build/
 node_modules/
 test/

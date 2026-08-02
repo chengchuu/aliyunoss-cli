@@ -7,10 +7,15 @@
     "aliyunoss-cli": "./bin/index.js"
   },
   "scripts": {
-    "build:tsc": "npx tsc src/index.ts --outDir bin",
+    "build:tsc": "tsc --project tsconfig.json",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "lint": "npm run typecheck",
     "release:dev": "node bin/index.js --releaseEnv dev",
-    "test": "echo \"Tests are on the way.\"",
-    "build": "echo \"Skip build step.\""
+    "test": "node --test",
+    "build": "npm run build:tsc"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "repository": {
     "type": "git",
@@ -30,14 +35,13 @@
   },
   "homepage": "https://github.com/chengchuu/aliyunoss-cli#readme",
   "devDependencies": {
-    "@types/ali-oss": "^6.0.5",
-    "@types/minimist": "^1.2.0",
-    "@types/node": "^14.6.0",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "@types/ali-oss": "^6.23.3",
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^22.20.1",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "ali-oss": "^6.10.0",
-    "minimist": "^1.2.5"
+    "ali-oss": "^6.23.0",
+    "minimist": "^1.2.8"
   }
 }
