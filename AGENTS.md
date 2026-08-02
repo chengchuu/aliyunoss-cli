@@ -14,8 +14,8 @@ rewrite history unless the user explicitly asks.
 
 ## Repository Map
 
-- `src/index.ts`: canonical CLI entrypoint; parses arguments, loads configuration, applies
-  overrides, validates required fields, and starts the upload.
+- `src/index.ts`: canonical CLI entrypoint; parses arguments, reads the package version, loads
+  configuration, applies overrides, validates required fields, and starts the upload.
 - `src/upload.ts`: file discovery, OSS client creation, upload/retry handling, progress counters,
   and console output.
 - `bin/index.js` and `bin/upload.js`: committed JavaScript emitted from `src` and used by the
@@ -29,7 +29,9 @@ rewrite history unless the user explicitly asks.
 - `dist-dev/`, `docs/`, and `coverage/`: generated output; never edit these directories manually.
 - `alioss.config.json`: example configuration. Never add real credentials.
 - `README.md`: installation, configuration, and CLI usage contract.
-- `.github/workflows/publish-npm.yml`: test, publish, and tag automation.
+- `.github/workflows/pages.yml`: npm-based validation, Pages artifact upload, and deployment.
+- `.github/workflows/publish-npm.yml`: npm-based test, publish, and tag automation. Workflows do not
+  configure npm or pnpm dependency caches.
 
 ## Runtime And Data Flow
 
@@ -61,7 +63,8 @@ The website is separate from the published CLI runtime.
 - `examples/App.tsx` renders the playground and constructs the public package-root OSS client with
   placeholder credentials. It must never call upload methods or issue network requests.
 - TypeDoc owns API HTML generation. `scripts/build-pages.cjs` applies deterministic metadata and
-  navigation enhancements before assembling the final `docs/` artifact.
+  navigation enhancements before assembling the final `docs/` artifact. The Pages cache version
+  must remain content-sensitive through `scripts/fingerprint-pages.cjs`.
 
 - **Shared state:** `src/upload.ts` owns module-level counters (`allNumber`, `tmpNumber`,
   `sucNumber`, `retNumber`, and `sizeNumber`). Async upload callbacks mutate them and `_result()`
@@ -80,7 +83,9 @@ The website is separate from the published CLI runtime.
 
 ## Build And Validation
 
-Use pnpm and the committed `pnpm-lock.yaml`. Relevant scripts are:
+Use pnpm and the committed `pnpm-lock.yaml` for reproducible local installation. GitHub Actions
+uses `npm install`, runs scripts through npm, and intentionally does not configure a package-manager
+cache. Relevant scripts are:
 
 ```bash
 npm run build:tsc
