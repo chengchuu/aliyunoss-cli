@@ -6,7 +6,7 @@
 `aliyunoss-cli` recursively uploads a local directory to Alibaba Cloud Object Storage Service (OSS). It supports reusable JSON configuration, environment-specific source and target paths, and explicit command-line overrides.
 
 - [Project website](https://chengchuu.github.io/aliyunoss-cli/)
-- [Playground](https://chengchuu.github.io/aliyunoss-cli/playground/)
+- [Examples](https://chengchuu.github.io/aliyunoss-cli/examples/)
 - [API documentation](https://chengchuu.github.io/aliyunoss-cli/api/)
 
 ## Install

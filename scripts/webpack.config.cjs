@@ -34,10 +34,10 @@ const templateParameters = {
   OPEN_GRAPH_IMAGE_URL: social.url,
   OPEN_GRAPH_IMAGE_WIDTH: social.width,
   PACKAGE_NAME: projectConfig.package.name,
-  PLAYGROUND_DESCRIPTION: pages.playground.description,
-  PLAYGROUND_JSON_LD: JSON.stringify(projectConfig.seo.playgroundJsonLd),
-  PLAYGROUND_TITLE: pages.playground.title,
-  PLAYGROUND_URL: pages.playground.url,
+  EXAMPLES_DESCRIPTION: pages.examples.description,
+  EXAMPLES_JSON_LD: JSON.stringify(projectConfig.seo.examplesJsonLd),
+  EXAMPLES_TITLE: pages.examples.title,
+  EXAMPLES_URL: pages.examples.url,
   ROOT_DESCRIPTION: pages.home.description,
   ROOT_JSON_LD: JSON.stringify(projectConfig.seo.rootJsonLd),
   ROOT_TITLE: pages.home.title,
@@ -77,7 +77,7 @@ module.exports = {
   entry: {
     shared: [path.join(root, "site/shared.ts"), ...imageEntries],
     home: { import: path.join(root, "site/index.ts"), dependOn: "shared" },
-    playground: {
+    examples: {
       import: path.join(root, "examples/index.tsx"),
       dependOn: "shared",
     },
@@ -128,9 +128,9 @@ module.exports = {
       templateParameters,
     }),
     new HtmlWebpackPlugin({
-      filename: "playground/index.html",
+      filename: "examples/index.html",
       template: path.join(root, "examples/index.html"),
-      chunks: ["shared", "playground"],
+      chunks: ["shared", "examples"],
       inject: "body",
       templateParameters,
     }),

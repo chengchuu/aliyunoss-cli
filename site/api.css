@@ -34,15 +34,6 @@
   flex: none;
 }
 
-.site-project-links .theme-control {
-  display: inline-flex;
-  align-items: center;
-  flex: none;
-  gap: 0.4rem;
-  margin-left: auto;
-}
-
-.site-project-links select,
 .tsd-theme-toggle select {
   min-height: 1.75rem;
   border: 1px solid var(--color-accent);
@@ -51,13 +42,11 @@
   background: var(--color-background-secondary, transparent);
 }
 
-.site-project-links select option,
 .tsd-theme-toggle select option {
   color: var(--color-text, CanvasText);
   background-color: var(--color-background, Canvas);
 }
 
-.site-project-links select:focus-visible,
 .tsd-theme-toggle select:focus-visible {
   outline: none;
   border: 1px solid var(--color-link);
@@ -129,14 +118,6 @@
 
   .site-project-links a:not(:first-child) {
     display: none;
-  }
-
-  .site-project-links .theme-control span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
   }
 
   .site-pwa-update {

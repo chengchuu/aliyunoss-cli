@@ -51,7 +51,7 @@ if (manifest) {
   if (!maskable) fail("Manifest requires a maskable icon");
 }
 
-for (const file of ["index.html", "playground/index.html", "api/index.html"]) {
+for (const file of ["index.html", "examples/index.html", "api/index.html"]) {
   const fullPath = path.join(docs, file);
   if (!fs.existsSync(fullPath)) {
     fail(`${file} is missing`);

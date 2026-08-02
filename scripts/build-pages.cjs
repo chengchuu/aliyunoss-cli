@@ -74,8 +74,19 @@ function apiEnhancement(relativeFile, title, canonical) {
 ${markerEnd}`;
 }
 
-function apiToolbar() {
-  return `${markerStart}<header class="api-project-header"><nav class="navbar navbar-expand-xl site-navbar" aria-label="Project navigation" data-site-navbar><div class="container-fluid"><a class="navbar-brand" href="${config.site.basePath}">${config.brand.displayName}</a><button class="navbar-toggler" type="button" aria-controls="api-project-navigation" aria-expanded="false" aria-label="Toggle project navigation" data-nav-toggle><span class="navbar-toggler-icon" aria-hidden="true"></span></button><div id="api-project-navigation" class="navbar-collapse" data-mobile-nav><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="${config.site.basePath}">Project home</a></li><li class="nav-item"><a class="nav-link" href="${config.site.basePath}api/">API overview</a></li><li class="nav-item"><a class="nav-link" href="${config.urls.github}">GitHub repository</a></li><li class="nav-item"><a class="nav-link" href="${config.urls.npm}">npm package</a></li></ul><label class="theme-control ms-xl-3"><span>Theme</span><select class="form-select form-select-sm w-auto" data-theme-select aria-label="Choose API documentation theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div></div></nav></header>${markerEnd}`;
+function apiToolbarLinks() {
+  const links = [
+    ["Project home", config.site.basePath],
+    ["Examples", `${config.site.basePath}examples/`],
+    ["API overview", `${config.site.basePath}api/`],
+    ["GitHub", config.urls.github],
+    ["npm", config.urls.npm],
+  ]
+    .map(
+      ([label, url]) => `<a href="${escapeHtml(url)}">${escapeHtml(label)}</a>`,
+    )
+    .join("");
+  return `${markerStart}<nav class="site-project-links" aria-label="Project links">${links}</nav>${markerEnd}`;
 }
 
 function transformApiHtml(file) {
@@ -107,7 +118,10 @@ function transformApiHtml(file) {
       "</head>",
       `${apiEnhancement(relative, title, canonical)}\n</head>`,
     )
-    .replace(/<body\b[^>]*>/i, (body) => `${body}\n${apiToolbar()}`)
+    .replace(
+      /(<div\b[^>]*id=["']tsd-toolbar-links["'][^>]*>)\s*(<\/div>)/i,
+      `$1${apiToolbarLinks()}$2`,
+    )
     .replace(
       "</body>",
       `${markerStart}<aside class="pwa-update-notice" aria-label="Website update" data-pwa-update hidden><span>A new website version is available.</span><button type="button" data-pwa-update-now>Update now</button></aside><span class="visually-hidden" role="status" aria-live="polite" data-pwa-status></span><script src="${config.site.basePath}assets/shared.js"></script><script src="${config.site.basePath}assets/api.js"></script>${markerEnd}</body>`,
@@ -172,7 +186,7 @@ fs.writeFileSync(
 
 const shell = [
   config.site.basePath,
-  `${config.site.basePath}playground/`,
+  `${config.site.basePath}examples/`,
   `${config.site.basePath}api/`,
   config.pwa.manifestUrl,
   ...config.pwa.icons.map(({ src }) => src),

@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><%= PLAYGROUND_TITLE %></title>
-    <meta name="description" content="<%= PLAYGROUND_DESCRIPTION %>" />
-    <link rel="canonical" href="<%= PLAYGROUND_URL %>" />
+    <title><%= EXAMPLES_TITLE %></title>
+    <meta name="description" content="<%= EXAMPLES_DESCRIPTION %>" />
+    <link rel="canonical" href="<%= EXAMPLES_URL %>" />
     <link rel="sitemap" type="application/xml" href="<%= SITEMAP_URL %>" />
     <link rel="icon" href="<%= FAVICON_URL %>" type="image/png" />
     <% if (MANIFEST_URL) { %>
@@ -42,25 +42,25 @@
     </style>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="<%= DISPLAY_NAME %>" />
-    <meta property="og:title" content="<%= PLAYGROUND_TITLE %>" />
-    <meta property="og:description" content="<%= PLAYGROUND_DESCRIPTION %>" />
-    <meta property="og:url" content="<%= PLAYGROUND_URL %>" />
+    <meta property="og:title" content="<%= EXAMPLES_TITLE %>" />
+    <meta property="og:description" content="<%= EXAMPLES_DESCRIPTION %>" />
+    <meta property="og:url" content="<%= EXAMPLES_URL %>" />
     <meta property="og:image" content="<%= OPEN_GRAPH_IMAGE_URL %>" />
     <meta property="og:image:type" content="<%= OPEN_GRAPH_IMAGE_TYPE %>" />
     <meta property="og:image:width" content="<%= OPEN_GRAPH_IMAGE_WIDTH %>" />
     <meta property="og:image:height" content="<%= OPEN_GRAPH_IMAGE_HEIGHT %>" />
     <meta property="og:image:alt" content="<%= OPEN_GRAPH_IMAGE_ALT %>" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="<%= PLAYGROUND_TITLE %>" />
-    <meta name="twitter:description" content="<%= PLAYGROUND_DESCRIPTION %>" />
+    <meta name="twitter:title" content="<%= EXAMPLES_TITLE %>" />
+    <meta name="twitter:description" content="<%= EXAMPLES_DESCRIPTION %>" />
     <meta name="twitter:image" content="<%= OPEN_GRAPH_IMAGE_URL %>" />
     <meta name="twitter:image:alt" content="<%= OPEN_GRAPH_IMAGE_ALT %>" />
     <script type="application/ld+json">
-      <%= PLAYGROUND_JSON_LD %>
+      <%= EXAMPLES_JSON_LD %>
     </script>
   </head>
   <body id="top">
-    <a class="skip-link" href="#main-content">Skip to playground controls</a>
+    <a class="skip-link" href="#main-content">Skip to example controls</a>
     <header class="site-header">
       <nav
         class="navbar navbar-expand-xl site-navbar"
@@ -79,22 +79,18 @@
           ><button
             class="navbar-toggler"
             type="button"
-            aria-controls="playground-navigation"
+            aria-controls="examples-navigation"
             aria-expanded="false"
             aria-label="Toggle project navigation"
             data-nav-toggle
           >
             <span class="navbar-toggler-icon" aria-hidden="true"></span>
           </button>
-          <div
-            id="playground-navigation"
-            class="navbar-collapse"
-            data-mobile-nav
-          >
+          <div id="examples-navigation" class="navbar-collapse" data-mobile-nav>
             <ul class="navbar-nav ms-auto align-items-xl-center gap-xl-1">
               <li class="nav-item"><a class="nav-link" href="../">Home</a></li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="./">Playground</a>
+                <a class="nav-link" aria-current="page" href="./">Examples</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="../#install">Install</a>
@@ -117,7 +113,7 @@
               ><select
                 class="form-select form-select-sm w-auto"
                 data-theme-select
-                aria-label="Choose playground theme"
+                aria-label="Choose examples theme"
               >
                 <option value="system">System</option>
                 <option value="light">Light</option>
@@ -129,21 +125,20 @@
       </nav>
     </header>
     <main id="main-content">
-      <section class="section-band" aria-labelledby="playground-title">
+      <section class="section-band" aria-labelledby="examples-title">
         <div class="container">
           <div class="section-heading">
             <p class="text-uppercase fw-semibold text-muted-custom mb-2">
               No-network example
             </p>
-            <h1 id="playground-title">Configure an Alibaba Cloud OSS client</h1>
+            <h1 id="examples-title">Configure an Alibaba Cloud OSS client</h1>
             <p>
               Enter non-secret sample settings and create a client through the
-              package root API. The playground displays safe configuration
-              fields and never calls an upload method or sends a network
-              request.
+              package root API. The example displays safe configuration fields
+              and never calls an upload method or sends a network request.
             </p>
           </div>
-          <div id="playground-root"></div>
+          <div id="examples-root"></div>
         </div>
       </section>
       <section
@@ -199,7 +194,7 @@
     <footer class="site-footer">
       <div class="container d-lg-flex justify-content-between gap-4">
         <p>
-          <strong><%= DISPLAY_NAME %> playground</strong><br />Creates a client
+          <strong><%= DISPLAY_NAME %> examples</strong><br />Creates a client
           without uploading data.
         </p>
         <nav aria-label="Footer navigation">
