@@ -6,7 +6,6 @@ env:
 on:
   push:
     branches:
-      - main
       - 'release/v*'
   pull_request:
     branches:

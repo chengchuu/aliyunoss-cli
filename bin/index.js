@@ -3,12 +3,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const upload_1 = require("./upload");
 const minimist = require('minimist');
+const pkg = require('../package.json');
 // 获取命令行参数
 const program = minimist(process.argv.slice(2));
 // console.log(program)
 // 查看版本
 if (program.version) {
-    console.log('1.1.1');
+    console.log(pkg.version);
     process.exit();
 }
 // 帮助

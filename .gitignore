@@ -4,6 +4,9 @@ server/
 .DS_Store
 node_modules/
 dist/
+dist-dev/
+docs/
+coverage/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

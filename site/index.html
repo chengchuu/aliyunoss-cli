@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= ROOT_TITLE %></title>
+    <meta name="description" content="<%= ROOT_DESCRIPTION %>" />
+    <link rel="canonical" href="<%= SITE_URL %>" />
+    <link rel="sitemap" type="application/xml" href="<%= SITEMAP_URL %>" />
+    <link rel="icon" href="<%= FAVICON_URL %>" type="image/png" />
+    <% if (MANIFEST_URL) { %>
+    <link rel="manifest" href="<%= MANIFEST_URL %>" />
+    <% } %>
+    <meta
+      name="theme-color"
+      content="<%= THEME_COLOR_PRIMARY %>"
+      data-theme-color
+      data-theme-color-light="<%= THEME_COLOR_LIGHT %>"
+      data-theme-color-dark="<%= THEME_COLOR_DARK %>"
+    />
+    <style>
+      :root {
+        --project-theme-primary: <%= THEME_COLOR_PRIMARY %>;
+        --project-theme-primary-hover: <%= THEME_PRIMARY_HOVER %>;
+        --project-theme-primary-active: <%= THEME_PRIMARY_ACTIVE %>;
+        --project-theme-primary-active-rgb: <%= THEME_PRIMARY_ACTIVE_RGB %>;
+        --project-theme-primary-soft: <%= THEME_PRIMARY_SOFT %>;
+        --project-theme-primary-rgb: <%= THEME_PRIMARY_RGB %>;
+        --project-theme-primary-hover-rgb: <%= THEME_PRIMARY_HOVER_RGB %>;
+        --project-theme-primary-dark: <%= THEME_PRIMARY_DARK %>;
+        --project-theme-primary-dark-hover: <%= THEME_PRIMARY_DARK_HOVER %>;
+        --project-theme-primary-dark-active: <%= THEME_PRIMARY_DARK_ACTIVE %>;
+        --project-theme-primary-dark-active-rgb: <%=
+          THEME_PRIMARY_DARK_ACTIVE_RGB %>;
+        --project-theme-primary-dark-soft: <%= THEME_PRIMARY_DARK_SOFT %>;
+        --project-theme-primary-dark-rgb: <%= THEME_PRIMARY_DARK_RGB %>;
+        --project-theme-primary-dark-hover-rgb: <%= THEME_PRIMARY_DARK_HOVER_RGB
+          %>;
+        --project-theme-light: <%= THEME_COLOR_LIGHT %>;
+        --project-theme-dark: <%= THEME_COLOR_DARK %>;
+      }
+    </style>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="<%= DISPLAY_NAME %>" />
+    <meta property="og:title" content="<%= ROOT_TITLE %>" />
+    <meta property="og:description" content="<%= ROOT_DESCRIPTION %>" />
+    <meta property="og:url" content="<%= SITE_URL %>" />
+    <meta property="og:image" content="<%= OPEN_GRAPH_IMAGE_URL %>" />
+    <meta property="og:image:type" content="<%= OPEN_GRAPH_IMAGE_TYPE %>" />
+    <meta property="og:image:width" content="<%= OPEN_GRAPH_IMAGE_WIDTH %>" />
+    <meta property="og:image:height" content="<%= OPEN_GRAPH_IMAGE_HEIGHT %>" />
+    <meta property="og:image:alt" content="<%= OPEN_GRAPH_IMAGE_ALT %>" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="<%= ROOT_TITLE %>" />
+    <meta name="twitter:description" content="<%= ROOT_DESCRIPTION %>" />
+    <meta name="twitter:image" content="<%= OPEN_GRAPH_IMAGE_URL %>" />
+    <meta name="twitter:image:alt" content="<%= OPEN_GRAPH_IMAGE_ALT %>" />
+    <script type="application/ld+json">
+      <%= ROOT_JSON_LD %>
+    </script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header">
+      <nav
+        class="navbar navbar-expand-xl site-navbar"
+        aria-label="Primary navigation"
+        data-site-navbar
+      >
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center gap-2" href="./">
+            <img
+              class="brand-logo"
+              src="<%= LOGO_URL %>"
+              width="32"
+              height="32"
+              alt=""
+            />
+            <span><%= DISPLAY_NAME %></span>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            aria-controls="primary-navigation"
+            aria-expanded="false"
+            aria-label="Toggle project navigation"
+            data-nav-toggle
+          >
+            <span class="navbar-toggler-icon" aria-hidden="true"></span>
+          </button>
+          <div id="primary-navigation" class="navbar-collapse" data-mobile-nav>
+            <ul class="navbar-nav ms-auto align-items-xl-center gap-xl-1">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./playground/">Playground</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#install">Install</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#usage">Usage</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./api/">API</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= GITHUB_URL %>">GitHub</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<%= NPM_URL %>">npm</a>
+              </li>
+            </ul>
+            <label class="theme-control ms-xl-3"
+              ><span>Theme</span
+              ><select
+                class="form-select form-select-sm w-auto"
+                data-theme-select
+                aria-label="Choose website theme"
+              >
+                <option value="system">System</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select></label
+            >
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container">
+          <img
+            class="hero-logo"
+            src="<%= LOGO_URL %>"
+            width="72"
+            height="72"
+            alt="<%= DISPLAY_NAME %> project logo"
+          />
+          <h1 id="hero-title">Upload directories to Alibaba Cloud OSS</h1>
+          <p class="lead"><%= ROOT_DESCRIPTION %></p>
+          <div class="hero-actions" aria-label="Project actions">
+            <a class="btn btn-primary btn-lg" href="#install"
+              >Install the CLI</a
+            >
+            <a class="btn btn-outline-secondary btn-lg" href="./playground/"
+              >Open playground</a
+            >
+            <a class="btn btn-outline-secondary btn-lg" href="./api/"
+              >View API documentation</a
+            >
+          </div>
+          <div class="install-command" aria-label="npm installation command">
+            <code><%= INSTALL_COMMAND %></code
+            ><button class="btn" type="button" data-copy-install>
+              Copy command
+            </button>
+          </div>
+          <p
+            class="copy-status"
+            role="status"
+            aria-live="polite"
+            data-copy-status
+          ></p>
+          <p
+            class="pwa-status"
+            role="status"
+            aria-live="polite"
+            data-pwa-status
+          ></p>
+        </div>
+      </section>
+
+      <section
+        id="install"
+        class="section-band"
+        aria-labelledby="install-title"
+      >
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="install-title">Install</h2>
+            <p>
+              Install the command as a development dependency in the project
+              that produces the directory you want to upload. The package
+              requires Node.js 22 or later.
+            </p>
+          </div>
+          <pre class="code-sample"><code><%= INSTALL_COMMAND %></code></pre>
+          <p>
+            Run <code>npx aliyunoss-cli --help</code> to inspect the available
+            options without uploading files.
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="usage"
+        class="section-band section-band--muted"
+        aria-labelledby="usage-title"
+      >
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="usage-title">Configure and run an upload</h2>
+            <p>
+              The command loads the base JSON configuration, merges the selected
+              <code>releaseEnvConf</code> entry, and then applies explicit
+              command-line flags. Required values are <code>region</code>,
+              <code>accessKeyId</code>, <code>accessKeySecret</code>,
+              <code>bucket</code>, <code>source</code>, and <code>target</code>.
+            </p>
+          </div>
+          <div class="row g-4">
+            <article class="col-lg-7">
+              <h3 class="h5">Configuration file</h3>
+              <pre class="code-sample"><code>{
+  "region": "oss-region-id",
+  "accessKeyId": "your-access-key-id",
+  "accessKeySecret": "your-access-key-secret",
+  "bucket": "your-bucket",
+  "releaseEnvConf": {
+    "production": {
+      "source": "dist/",
+      "target": "static/"
+    }
+  }
+}</code></pre>
+            </article>
+            <article class="col-lg-5">
+              <h3 class="h5">Command</h3>
+              <pre
+                class="code-sample"
+              ><code>npx aliyunoss-cli --releaseEnv production</code></pre>
+              <p>
+                Use explicit flags such as <code>--source</code> and
+                <code>--target</code> when a run must override the selected
+                environment.
+              </p>
+              <p>
+                <strong>Keep credentials out of source control.</strong> Store
+                real access keys only in protected local or CI configuration.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-band" aria-labelledby="behavior-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="behavior-title">Package and command behavior</h2>
+            <p>
+              The executable recursively walks the configured local source
+              directory and uploads files beneath the configured OSS target
+              path. The package root continues to expose the Alibaba Cloud OSS
+              client constructor for programmatic use.
+            </p>
+          </div>
+          <div class="row g-3">
+            <article class="col-md-4">
+              <div class="card feature-card p-4">
+                <h3 class="h5">Environment overrides</h3>
+                <p class="mb-0">
+                  Keep reusable base credentials and bucket settings separate
+                  from environment-specific source and target paths.
+                </p>
+              </div>
+            </article>
+            <article class="col-md-4">
+              <div class="card feature-card p-4">
+                <h3 class="h5">Explicit precedence</h3>
+                <p class="mb-0">
+                  Command-line flags override the selected environment, which
+                  overrides the base JSON configuration.
+                </p>
+              </div>
+            </article>
+            <article class="col-md-4">
+              <div class="card feature-card p-4">
+                <h3 class="h5">Controlled playground</h3>
+                <p class="mb-0">
+                  The browser example constructs the public OSS client with
+                  placeholders and never starts an upload or network request.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="website-app-help"
+        class="section-band section-band--muted"
+        aria-labelledby="app-title"
+      >
+        <div class="container">
+          <h2 id="app-title">Install the documentation website</h2>
+          <p>
+            Supporting browsers can install this website for quick access to the
+            guide, playground, and API documentation. The service worker is
+            registered only on the production GitHub Pages path.
+          </p>
+          <div data-pwa-install-container hidden>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-pwa-install
+              hidden
+            >
+              Install app
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside
+      class="pwa-update-notice"
+      aria-label="Website update"
+      data-pwa-update
+      hidden
+    >
+      <span>A new website version is available.</span
+      ><button class="btn btn-primary btn-sm" type="button" data-pwa-update-now>
+        Update now
+      </button>
+    </aside>
+    <footer class="site-footer">
+      <div class="container d-lg-flex justify-content-between gap-4">
+        <p>
+          <strong><%= DISPLAY_NAME %></strong><br />Alibaba Cloud OSS upload
+          CLI.
+        </p>
+        <nav aria-label="Footer navigation">
+          <ul class="list-inline d-flex flex-wrap gap-3">
+            <li><a href="./playground/">Playground</a></li>
+            <li><a href="./api/">API documentation</a></li>
+            <li><a href="<%= GITHUB_URL %>">GitHub repository</a></li>
+            <li><a href="<%= NPM_URL %>">npm package</a></li>
+            <li><a href="<%= LICENSE_URL %>">MIT license</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

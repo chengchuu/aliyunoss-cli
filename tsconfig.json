@@ -13,5 +13,5 @@
     "noEmitOnError": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["bin", "lib", "node_modules"]
+  "exclude": ["src/library.ts", "bin", "lib", "node_modules"]
 }

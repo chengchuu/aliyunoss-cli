@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import {upload, path, fs} from './upload'
 const minimist = require('minimist')
-// const pkg = require('../package.json')
+const pkg = require('../package.json') as {version: string}
 
 interface IOssutilConfig {
   accessKeyId: string,
@@ -18,7 +18,7 @@ const program = minimist(process.argv.slice(2))
 // console.log(program)
 // 查看版本
 if (program.version) {
-  console.log('1.1.1')
+  console.log(pkg.version)
   process.exit()
 }
 // 帮助

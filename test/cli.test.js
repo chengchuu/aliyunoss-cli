@@ -15,3 +15,13 @@ test('prints CLI help without starting an upload', () => {
   assert.equal(result.status, 0)
   assert.match(result.stdout, /Usage: aliyunoss-cli \[options\]/)
 })
+
+test('prints the package version without starting an upload', () => {
+  const result = spawnSync(process.execPath, ['bin/index.js', '--version'], {
+    cwd: process.cwd(),
+    encoding: 'utf8'
+  })
+
+  assert.equal(result.status, 0)
+  assert.equal(result.stdout.trim(), require('../package.json').version)
+})
