@@ -60,6 +60,18 @@ body {
   line-height: 1.65;
 }
 
+body.site-page {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-page > main {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
 a {
   text-underline-offset: 0.2em;
 }
@@ -277,6 +289,10 @@ a {
   border-bottom: 1px solid var(--mn-border);
 }
 
+.site-page > main > .section-band:last-child {
+  flex-grow: 1;
+}
+
 .section-band--muted {
   background: var(--mn-surface-muted);
 }
@@ -338,19 +354,55 @@ a {
 }
 
 .site-footer {
-  padding: 2.5rem 0;
+  flex: 0 0 auto;
+  padding: 1.5rem 0;
   color: var(--mn-muted);
   background: var(--mn-surface);
 }
 
+.site-footer-layout {
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem 3rem;
+}
+
+.site-footer-summary {
+  max-width: 28rem;
+  margin: 0;
+}
+
+.site-footer-summary strong {
+  color: var(--mn-text);
+}
+
+.site-footer-nav {
+  justify-self: end;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .site-footer a {
+  color: var(--mn-muted);
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
   color: var(--mn-text);
 }
 
 .pwa-footer-install {
   padding: 0;
   border: 0;
-  color: var(--mn-text);
+  color: var(--mn-muted);
   background: transparent;
   font: inherit;
   text-decoration: underline;
@@ -358,12 +410,9 @@ a {
   cursor: pointer;
 }
 
-.pwa-footer-install:hover {
-  color: var(--mn-primary-hover);
-}
-
-.site-footer ul {
-  margin: 0;
+.pwa-footer-install:hover,
+.pwa-footer-install:focus-visible {
+  color: var(--mn-text);
 }
 
 @media (max-width: 1199.98px) {
@@ -390,6 +439,20 @@ a {
     margin-top: 0.5rem;
     padding-top: 0.75rem;
     border-top: 1px solid var(--mn-border);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .site-footer-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-footer-nav {
+    justify-self: start;
+  }
+
+  .site-footer-links {
+    justify-content: flex-start;
   }
 }
 

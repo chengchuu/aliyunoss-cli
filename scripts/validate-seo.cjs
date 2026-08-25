@@ -146,6 +146,9 @@ for (const file of filesIn(docs).filter((entry) => entry.endsWith(".html"))) {
   const html = fs.readFileSync(file, "utf8");
   validateLocalReferences(file, html);
   if (file.startsWith(path.join(docs, "api"))) {
+    const htmlTag = html.match(/<html\b[^>]*>/i)?.[0];
+    if (!htmlTag || !attributes(htmlTag)["data-base"])
+      fail(`${path.relative(docs, file)}: missing TypeDoc data-base attribute`);
     if (html.includes("api-project-header"))
       fail(`${path.relative(docs, file)}: contains the surplus project header`);
     const toolbarLinks = html.match(

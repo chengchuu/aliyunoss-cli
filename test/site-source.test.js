@@ -22,3 +22,16 @@ test("examples use the package root and contain no OSS operation call", () => {
   assert.match(source, /from "aliyunoss-cli"/);
   assert.doesNotMatch(source, /\.put\s*\(|\.multipartUpload\s*\(/);
 });
+
+test("full-height footer layout stays scoped away from TypeDoc", () => {
+  const css = fs.readFileSync(path.join(root, "site/site.css"), "utf8");
+  const templates = ["site/index.html", "examples/index.html"].map((file) =>
+    fs.readFileSync(path.join(root, file), "utf8"),
+  );
+
+  for (const template of templates)
+    assert.match(template, /<body\b[^>]*class="site-page"/);
+  assert.match(css, /body\.site-page\s*\{[^}]*display:\s*flex/s);
+  assert.doesNotMatch(css, /(?:^|\n)body\s*\{[^}]*display:\s*flex/s);
+  assert.doesNotMatch(css, /(?:^|\n)main\s*\{/);
+});

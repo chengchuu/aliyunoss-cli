@@ -59,7 +59,7 @@
       <%= EXAMPLES_JSON_LD %>
     </script>
   </head>
-  <body id="top">
+  <body id="top" class="site-page">
     <a class="skip-link" href="#main-content">Skip to example controls</a>
     <header class="site-header">
       <nav
@@ -192,13 +192,13 @@
       </div></noscript
     >
     <footer class="site-footer">
-      <div class="container d-lg-flex justify-content-between gap-4">
-        <p>
+      <div class="container site-footer-layout">
+        <p class="site-footer-summary">
           <strong><%= DISPLAY_NAME %> examples</strong><br />Creates a client
           without uploading data.
         </p>
-        <nav aria-label="Footer navigation">
-          <ul class="list-inline d-flex flex-wrap gap-3">
+        <nav class="site-footer-nav" aria-label="Footer navigation">
+          <ul class="site-footer-links">
             <li><a href="../">Project home</a></li>
             <li><a href="../api/">API documentation</a></li>
             <li><a href="<%= GITHUB_URL %>">GitHub repository</a></li>

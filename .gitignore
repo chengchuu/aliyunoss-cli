@@ -1,6 +1,4 @@
-# server
 server/
-
 .DS_Store
 node_modules/
 dist/
@@ -14,16 +12,12 @@ test/unit/coverage
 test/e2e/reports
 selenium-debug.log
 doc/
-
-# Editor directories and files
 .idea
 .vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-
-# cache
 .sass-cache/
 package-lock.json
 yarn-error.log

@@ -6,7 +6,6 @@ node_modules/
 pnpm-lock.yaml
 .github/workflows/publish-npm.yml
 alioss.config.json
-globals.d.ts
 src/index.ts
 src/upload.ts
 test/cli.test.js
