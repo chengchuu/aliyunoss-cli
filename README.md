@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/aliyunoss-cli)](https://www.npmjs.com/package/aliyunoss-cli)
 [![license](https://img.shields.io/npm/l/aliyunoss-cli)](https://github.com/chengchuu/aliyunoss-cli/blob/master/LICENSE)
 
-`aliyunoss-cli` recursively uploads a local directory to Alibaba Cloud Object Storage Service (OSS). It supports reusable JSON configuration, environment-specific source and target paths, and explicit command-line overrides.
+`aliyunoss-cli` recursively uploads a local directory to Alibaba Cloud Object Storage Service (OSS). It supports reusable JSON configuration and environment-specific source and target paths. Command-line flags override values from the JSON file and selected environment.
 
 - [Project website](https://chengchuu.github.io/aliyunoss-cli/)
 - [Examples](https://chengchuu.github.io/aliyunoss-cli/examples/)
@@ -11,7 +11,7 @@
 
 ## Install
 
-The package requires Node.js 22 or later. Install it as a development dependency in the project that produces the files you want to upload:
+Install the package as a development dependency in the project that builds the directory you want to upload:
 
 ```bash
 npm install --save-dev aliyunoss-cli
@@ -40,15 +40,15 @@ Create `alioss.config.json` in the directory where you run the command:
 }
 ```
 
-The final configuration uses this precedence, from lowest to highest:
+The CLI resolves configuration in the following order, from lowest to highest precedence:
 
 1. Base values in the JSON file.
 2. Values from the selected `releaseEnvConf` entry.
 3. Explicit command-line flags.
 
-The command requires `region`, `accessKeyId`, `accessKeySecret`, `bucket`, `source`, and `target` after merging configuration.
+The merged configuration must include `region`, `accessKeyId`, `accessKeySecret`, `bucket`, `source`, and `target`.
 
-**Warning:** Never commit real OSS access keys. Keep credentials in a protected local file or inject them through a secured continuous integration environment.
+**Warning:** Never commit real OSS access keys. Store credentials in a protected local configuration file or provide them through protected continuous integration (CI) configuration.
 
 ## Upload a directory
 
@@ -68,12 +68,14 @@ npx aliyunoss-cli \
   --target static/
 ```
 
-The command recursively discovers files beneath `source` and uploads each file beneath `target`. Do not point it at production credentials or a production bucket until you have verified the resolved paths and configuration.
+The command recursively discovers files beneath `source` and uploads each file beneath `target`. Before you use production credentials or a production bucket, verify the resolved source path, target path, and configuration.
 
 ## Command options
 
+The CLI supports the following options:
+
 | Option              | Purpose                                                             |
-| ------------------- | ------------------------------------------------------------------- |
+| :------------------ | :------------------------------------------------------------------ |
 | `--help`            | Show CLI help without starting an upload.                           |
 | `--version`         | Show the CLI version.                                               |
 | `--config`          | Select a configuration file. The default is `./alioss.config.json`. |
@@ -89,7 +91,7 @@ Run `npx aliyunoss-cli --help` to inspect the CLI without uploading files.
 
 ## Use the package root
 
-The package root re-exports the [`ali-oss`](https://www.npmjs.com/package/ali-oss) client constructor for compatibility:
+For compatibility, the package root re-exports the [`ali-oss`](https://www.npmjs.com/package/ali-oss) client constructor:
 
 ```js
 const OSS = require("aliyunoss-cli");
@@ -102,24 +104,22 @@ const client = new OSS({
 });
 ```
 
-Creating a client does not upload data. An OSS operation such as `client.put()` performs a network request.
+Creating a client does not upload data. Calling an OSS operation, such as `client.put()`, performs a network request.
 
 ## Develop
 
-This repository uses pnpm for reproducible dependency installation:
-
 ```bash
 corepack enable
-pnpm install
-pnpm run typecheck
-pnpm run lint
-pnpm test
-pnpm run build
-pnpm run docs
-pnpm run format:check
+npm install
+npm run typecheck
+npm run lint
+npm test
+npm run build
+npm run docs
+npm run format:check
 ```
 
-`pnpm run docs` creates and validates the final GitHub Pages artifact in `docs/`. Generated `bin/`, `lib/`, `dist-dev/`, `docs/`, and `coverage/` output must be changed through source or build configuration rather than manual edits.
+`npm run docs` creates and validates the final GitHub Pages artifact in `docs/`. Treat `bin/`, `lib/`, `dist-dev/`, `docs/`, and `coverage/` as generated output. Update the maintained source or build configuration, then regenerate the affected output instead of editing it directly.
 
 ## License
 
