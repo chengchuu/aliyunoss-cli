@@ -17,6 +17,22 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;");
 }
 
+function setHtmlAttribute(tag, name, value) {
+  const attribute = new RegExp(`\\s${name}=(["'])[^"']*\\1`, "i");
+  const replacement = ` ${name}="${escapeHtml(value)}"`;
+  return attribute.test(tag)
+    ? tag.replace(attribute, replacement)
+    : tag.replace(/>$/, `${replacement}>`);
+}
+
+function enhanceHtmlTag(tag) {
+  return setHtmlAttribute(
+    setHtmlAttribute(tag, "lang", "en"),
+    "data-bs-theme",
+    "light",
+  );
+}
+
 function filesIn(directory) {
   return fs.readdirSync(directory).flatMap((name) => {
     const file = path.join(directory, name);
@@ -104,7 +120,7 @@ function transformApiHtml(file) {
       : existingTitle || config.site.pages.api.title;
   const canonical = apiUrl(relative);
   html = html
-    .replace(/<html\b[^>]*>/i, '<html lang="en" data-bs-theme="light">')
+    .replace(/<html\b[^>]*>/i, enhanceHtmlTag)
     .replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`)
     .replace(
       /<meta\b[^>]*(?:name=["']description["']|property=["']og:[^"']+["']|name=["']twitter:[^"']+["'])[^>]*>\s*/gi,

@@ -59,7 +59,7 @@
       <%= ROOT_JSON_LD %>
     </script>
   </head>
-  <body id="top">
+  <body id="top" class="site-page">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="site-header">
       <nav
@@ -253,8 +253,8 @@
             <p>
               The executable recursively walks the configured local source
               directory and uploads files beneath the configured OSS target
-              path. The package root continues to expose the Alibaba Cloud OSS
-              client constructor for programmatic use.
+              path. The package root exposes the Alibaba Cloud OSS client
+              constructor for programmatic use.
             </p>
           </div>
           <div class="row g-3">
@@ -288,31 +288,6 @@
           </div>
         </div>
       </section>
-
-      <section
-        id="website-app-help"
-        class="section-band section-band--muted"
-        aria-labelledby="app-title"
-      >
-        <div class="container">
-          <h2 id="app-title">Install the documentation website</h2>
-          <p>
-            Supporting browsers can install this website for quick access to the
-            guide, examples, and API documentation. The service worker is
-            registered only on the production GitHub Pages path.
-          </p>
-          <div data-pwa-install-container hidden>
-            <button
-              class="btn btn-primary"
-              type="button"
-              data-pwa-install
-              hidden
-            >
-              Install app
-            </button>
-          </div>
-        </div>
-      </section>
     </main>
 
     <aside
@@ -327,13 +302,13 @@
       </button>
     </aside>
     <footer class="site-footer">
-      <div class="container d-lg-flex justify-content-between gap-4">
-        <p>
+      <div class="container site-footer-layout">
+        <p class="site-footer-summary">
           <strong><%= DISPLAY_NAME %></strong><br />Alibaba Cloud OSS upload
           CLI.
         </p>
-        <nav aria-label="Footer navigation">
-          <ul class="list-inline d-flex flex-wrap gap-3">
+        <nav class="site-footer-nav" aria-label="Footer navigation">
+          <ul class="site-footer-links">
             <li><a href="./examples/">Examples</a></li>
             <li><a href="./api/">API documentation</a></li>
             <li><a href="<%= GITHUB_URL %>">GitHub repository</a></li>

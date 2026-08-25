@@ -91,7 +91,7 @@ Run `npx aliyunoss-cli --help` to inspect the CLI without uploading files.
 
 ## Use the package root
 
-For compatibility, the package root re-exports the [`ali-oss`](https://www.npmjs.com/package/ali-oss) client constructor:
+The package root re-exports the [`ali-oss`](https://www.npmjs.com/package/ali-oss) client constructor:
 
 ```js
 const OSS = require("aliyunoss-cli");
