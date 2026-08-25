@@ -1,77 +1,126 @@
-# Aliyunoss CLI
+# aliyunoss-cli
 
-[![NPM version][npm-image]][npm-url]
-[![l][l-image]][l-url]
+[![npm version](https://img.shields.io/npm/v/aliyunoss-cli)](https://www.npmjs.com/package/aliyunoss-cli)
+[![license](https://img.shields.io/npm/l/aliyunoss-cli)](https://github.com/chengchuu/aliyunoss-cli/blob/master/LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/aliyunoss-cli
-[npm-url]: https://npmjs.org/package/aliyunoss-cli
-[l-image]: https://img.shields.io/npm/l/aliyunoss-cli
-[l-url]: https://github.com/chengchuu/aliyunoss-cli
+`aliyunoss-cli` recursively uploads a local directory to Alibaba Cloud Object Storage Service (OSS). It supports reusable JSON configuration and environment-specific source and target paths. Command-line flags override values from the JSON file and selected environment.
 
-阿里云 OSS 文件上传 CLI。
+- [Project website](https://chengchuu.github.io/aliyunoss-cli/)
+- [Examples](https://chengchuu.github.io/aliyunoss-cli/examples/)
+- [API documentation](https://chengchuu.github.io/aliyunoss-cli/api/)
 
 ## Install
 
-You can get aliyunoss-cli via [npm](http://npmjs.com).
+Install the package as a development dependency in the project that builds the directory you want to upload:
 
 ```bash
-npm install aliyunoss-cli --save-dev
+npm install --save-dev aliyunoss-cli
 ```
 
-## Usage
+## Configure
 
-创建配置文件 `alioss.config.json`：
+Create `alioss.config.json` in the directory where you run the command:
 
 ```json
 {
-  "region": "-",
-  "accessKeyId": "-",
-  "accessKeySecret": "-",
-  "bucket": "-",
+  "region": "oss-region-id",
+  "accessKeyId": "your-access-key-id",
+  "accessKeySecret": "your-access-key-secret",
+  "bucket": "your-bucket",
   "releaseEnvConf": {
-    "dev": {
+    "development": {
       "source": "dist/",
-      "target": "home/dev/"
+      "target": "site/development/"
     },
-    "pre": {
+    "production": {
       "source": "dist/",
-      "target": "home/pre/"
-    },
-    "prd": {
-      "source": "dist/",
-      "target": "home/prd/"
+      "target": "site/production/"
     }
   }
 }
 ```
 
-运行：
+The CLI resolves configuration in the following order, from lowest to highest precedence:
+
+1. Base values in the JSON file.
+2. Values from the selected `releaseEnvConf` entry.
+3. Explicit command-line flags.
+
+The merged configuration must include `region`, `accessKeyId`, `accessKeySecret`, `bucket`, `source`, and `target`.
+
+**Warning:** Never commit real OSS access keys. Store credentials in a protected local configuration file or provide them through protected continuous integration (CI) configuration.
+
+## Upload a directory
+
+Select a configured environment:
 
 ```bash
-# 测试
-npx aliyunoss-cli --releaseEnv dev
-# 预发布
-npx aliyunoss-cli --releaseEnv pre
-# 生产
-npx aliyunoss-cli --releaseEnv prd
+npx aliyunoss-cli --releaseEnv development
+npx aliyunoss-cli --releaseEnv production
 ```
 
-更多命令 `npx aliyunoss-cli --help`：
+Override individual values for one run:
 
-```plain
-Usage: aliyunoss-cli [options]
---help               查看帮助
---version            查看版本
---config             配置文件路径 默认: ./alioss.config.json
---releaseEnv         发布环境 例如: dev pre prd
---source             本地静态文件路径 例如: dist/
---target             阿里云 OSS 文件路径 例如: static/home/
---accessKeyId        阿里云 OSS accessKeyId
---accessKeySecret    阿里云 OSS accessKeySecret
---bucket             阿里云 OSS bucket
---region             阿里云 OSS region
+```bash
+npx aliyunoss-cli \
+  --releaseEnv production \
+  --source public/ \
+  --target static/
 ```
 
-## thx
+The command recursively discovers files beneath `source` and uploads each file beneath `target`. Before you use production credentials or a production bucket, verify the resolved source path, target path, and configuration.
 
-[Jeremy Liang](https://github.com/whoopschat)
+## Command options
+
+The CLI supports the following options:
+
+| Option              | Purpose                                                             |
+| :------------------ | :------------------------------------------------------------------ |
+| `--help`            | Show CLI help without starting an upload.                           |
+| `--version`         | Show the CLI version.                                               |
+| `--config`          | Select a configuration file. The default is `./alioss.config.json`. |
+| `--releaseEnv`      | Select an entry from `releaseEnvConf`.                              |
+| `--source`          | Override the local source directory.                                |
+| `--target`          | Override the Alibaba Cloud OSS target path.                         |
+| `--accessKeyId`     | Override the Alibaba Cloud OSS access key ID.                       |
+| `--accessKeySecret` | Override the Alibaba Cloud OSS access key secret.                   |
+| `--bucket`          | Override the Alibaba Cloud OSS bucket.                              |
+| `--region`          | Override the Alibaba Cloud OSS region.                              |
+
+Run `npx aliyunoss-cli --help` to inspect the CLI without uploading files.
+
+## Use the package root
+
+The package root re-exports the [`ali-oss`](https://www.npmjs.com/package/ali-oss) client constructor:
+
+```js
+const OSS = require("aliyunoss-cli");
+
+const client = new OSS({
+  region: "oss-region-id",
+  accessKeyId: "your-access-key-id",
+  accessKeySecret: "your-access-key-secret",
+  bucket: "your-bucket",
+});
+```
+
+Creating a client does not upload data. Calling an OSS operation, such as `client.put()`, performs a network request.
+
+## Develop
+
+```bash
+corepack enable
+npm install
+npm run typecheck
+npm run lint
+npm test
+npm run build
+npm run docs
+npm run format:check
+```
+
+`npm run docs` creates and validates the final GitHub Pages artifact in `docs/`. Treat `bin/`, `lib/`, `dist-dev/`, `docs/`, and `coverage/` as generated output. Update the maintained source or build configuration, then regenerate the affected output instead of editing it directly.
+
+## License
+
+[MIT](https://github.com/chengchuu/aliyunoss-cli/blob/master/LICENSE)

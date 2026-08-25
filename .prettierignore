@@ -1,0 +1,11 @@
+bin/
+dist-dev/
+docs/
+lib/
+node_modules/
+pnpm-lock.yaml
+.github/workflows/publish-npm.yml
+alioss.config.json
+src/index.ts
+src/upload.ts
+test/cli.test.js
