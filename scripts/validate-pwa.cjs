@@ -6,6 +6,16 @@ const root = path.resolve(__dirname, "..");
 const docs = path.join(root, "docs");
 const failures = [];
 const fail = (message) => failures.push(message);
+function htmlFiles(directory) {
+  return fs.readdirSync(directory).flatMap((name) => {
+    const file = path.join(directory, name);
+    return fs.statSync(file).isDirectory()
+      ? htmlFiles(file)
+      : file.endsWith(".html")
+        ? [file]
+        : [];
+  });
+}
 
 function pngDimensions(file) {
   const data = fs.readFileSync(file);
@@ -62,8 +72,29 @@ for (const file of ["index.html", "examples/index.html", "api/index.html"]) {
     fail(`${file} is missing the configured manifest link`);
   if (!/<meta\b[^>]*name="theme-color"[^>]*data-theme-color/.test(html))
     fail(`${file} is missing dynamic theme-color metadata`);
-  if (!html.includes("data-pwa-update-now"))
-    fail(`${file} is missing the explicit update action`);
+  for (const forbidden of [
+    "data-pwa-update",
+    "data-pwa-update-now",
+    "pwa-update-notice",
+    "site-pwa-update",
+  ]) {
+    if (html.includes(forbidden))
+      fail(`${file} contains removed update UI: ${forbidden}`);
+  }
+}
+for (const file of htmlFiles(docs)) {
+  const html = fs.readFileSync(file, "utf8");
+  for (const forbidden of [
+    "data-pwa-update",
+    "data-pwa-update-now",
+    "pwa-update-notice",
+    "site-pwa-update",
+  ]) {
+    if (html.includes(forbidden))
+      fail(
+        `${path.relative(docs, file)} contains removed update UI: ${forbidden}`,
+      );
+  }
 }
 
 const workerFile = path.join(docs, "service-worker.js");
@@ -77,11 +108,12 @@ else {
     'request.method !== "GET"',
     "url.origin !== self.location.origin",
     "url.pathname.startsWith(PROJECT_BASE)",
-    'event.data?.type === "SKIP_WAITING"',
   ]) {
     if (!worker.includes(guard))
       fail(`Service worker is missing guard: ${guard}`);
   }
+  if (/SKIP_WAITING|skipWaiting\s*\(/.test(worker))
+    fail("Service worker contains forced update activation");
   const apiIndex = fs.readFileSync(
     path.join(docs, "api", "index.html"),
     "utf8",
