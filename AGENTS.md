@@ -88,8 +88,9 @@ The production routes are `/aliyunoss-cli/`, `/aliyunoss-cli/examples/`, and
   credentials but must not call `put`, `multipartUpload`, or any other network operation.
 - Theme preference and media-query behavior delegate to the installed `mazey` APIs. Keep the
   `system`, `light`, and `dark` controls synchronized across the homepage, examples, and TypeDoc.
-- PWA installation and service-worker updates remain user-controlled. Local `build:dev` output has
-  PWA registration disabled; the production Pages build enables it under the project base path.
+- PWA installation remains user-controlled. Service-worker updates activate through the browser's
+  normal lifecycle. Local `build:dev` output has PWA registration disabled; the production Pages
+  build enables it under the project base path.
 
 The React example is small and has no material render bottleneck; local form state intentionally
 re-renders only `App`. The CLI's practical throughput risks are synchronous recursive filesystem

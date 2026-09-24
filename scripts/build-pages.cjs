@@ -140,7 +140,7 @@ function transformApiHtml(file) {
     )
     .replace(
       "</body>",
-      `${markerStart}<aside class="pwa-update-notice" aria-label="Website update" data-pwa-update hidden><span>A new website version is available.</span><button type="button" data-pwa-update-now>Update now</button></aside><span class="visually-hidden" role="status" aria-live="polite" data-pwa-status></span><script src="${config.site.basePath}assets/shared.js"></script><script src="${config.site.basePath}assets/api.js"></script>${markerEnd}</body>`,
+      `${markerStart}<span class="visually-hidden" role="status" aria-live="polite" data-pwa-status></span><script src="${config.site.basePath}assets/shared.js"></script><script src="${config.site.basePath}assets/api.js"></script>${markerEnd}</body>`,
     );
   let foundPrimaryHeading = false;
   html = html.replace(
