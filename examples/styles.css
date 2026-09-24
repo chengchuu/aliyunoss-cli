@@ -1,0 +1,20 @@
+.examples-panel {
+  max-width: 56rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+  background: var(--bs-body-bg);
+  box-shadow: 0 1rem 2.5rem rgb(13 18 32 / 8%);
+}
+
+.result-card {
+  padding: 1rem;
+  border: 1px solid rgba(var(--project-theme-primary-rgb), 0.35);
+  border-radius: 0.75rem;
+  background: var(--project-theme-primary-soft);
+}
+
+[data-bs-theme="dark"] .result-card {
+  border-color: rgba(var(--project-theme-primary-dark-rgb), 0.45);
+  background: var(--project-theme-primary-dark-soft);
+}

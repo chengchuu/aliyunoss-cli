@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 "use strict";
-exports.__esModule = true;
-var upload_1 = require("./upload");
-var minimist = require('minimist');
+Object.defineProperty(exports, "__esModule", { value: true });
+const upload_1 = require("./upload");
+const minimist = require('minimist');
+const pkg = require('../package.json');
 // 获取命令行参数
-var program = minimist(process.argv.slice(2));
+const program = minimist(process.argv.slice(2));
 // console.log(program)
 // 查看版本
 if (program.version) {
-    console.log('1.1.1');
+    console.log(pkg.version);
     process.exit();
 }
 // 帮助
@@ -27,9 +28,9 @@ if (program.help) {
     process.exit();
 }
 // 获取配置路径
-var configPath = upload_1.path.posix.join(process.cwd(), program.config || './alioss.config.json');
+const configPath = upload_1.path.posix.join(process.cwd(), program.config || './alioss.config.json');
 // 获取文件配置
-var aliossConfig = {};
+const aliossConfig = {};
 if (upload_1.fs.existsSync(configPath)) {
     Object.assign(aliossConfig, require(configPath));
 }
@@ -52,12 +53,12 @@ if (program.target)
     aliossConfig.target = program.target;
 // console.log(aliossConfig)
 // 验证参数
-var verParams = ['region', 'accessKeyId', 'accessKeySecret', 'bucket', 'source', 'target'];
-verParams.forEach(function (k) {
+const verParams = ['region', 'accessKeyId', 'accessKeySecret', 'bucket', 'source', 'target'];
+verParams.forEach((k) => {
     if (!(k in aliossConfig)) {
-        console.error("ERROR: \u7F3A\u5C11\u53C2\u6570 " + k + "\uFF0C\u4F7F\u7528 --help \u547D\u4EE4\u67E5\u770B\u5177\u4F53\u63AA\u65BD\uFF01");
+        console.error(`ERROR: 缺少参数 ${k}，使用 --help 命令查看具体措施！`);
         process.exit();
     }
 });
 // 上传 OSS
-upload_1.upload(aliossConfig);
+(0, upload_1.upload)(aliossConfig);

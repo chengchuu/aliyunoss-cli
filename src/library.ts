@@ -1,11 +1,3 @@
-'use strict';
-
-var OSS = require('ali-oss');
-
-function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
-
-var OSS__default = /*#__PURE__*/_interopDefault(OSS);
-
 /**
  * The package root re-exports the Alibaba Cloud OSS client constructor.
  *
@@ -13,5 +5,6 @@ var OSS__default = /*#__PURE__*/_interopDefault(OSS);
  * executable. Creating a client does not upload data; network operations begin
  * only when an OSS method such as `put` is called.
  */
+import OSS from "ali-oss";
 
-module.exports = OSS__default.default;
+export default OSS;
