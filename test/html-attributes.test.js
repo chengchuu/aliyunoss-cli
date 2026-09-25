@@ -1,6 +1,10 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
-const { attributes, findTag } = require("../scripts/html-attributes.cjs");
+const {
+  attributes,
+  findElementContents,
+  findTag,
+} = require("../scripts/html-attributes.cjs");
 
 test("parses quoted, unquoted, and boolean HTML attributes", () => {
   assert.deepEqual(
@@ -32,5 +36,15 @@ test("finds SEO tags after production HTML removes optional quotes", () => {
   assert.equal(
     findTag(html, "link", "rel", "canonical").href,
     "https://chengchuu.github.io/aliyunoss-cli/",
+  );
+});
+
+test("finds JSON-LD after production HTML removes optional quotes", () => {
+  const jsonLd = '{"@context":"https://schema.org"}';
+  const html = `<script type=application/ld+json>${jsonLd}</script>`;
+
+  assert.deepEqual(
+    findElementContents(html, "script", "type", "application/ld+json"),
+    [jsonLd],
   );
 });
