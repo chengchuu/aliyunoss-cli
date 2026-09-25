@@ -1,26 +1,12 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const config = require("../project.config.js");
+const { attributes, findTag } = require("./html-attributes.cjs");
 
 const root = path.resolve(__dirname, "..");
 const docs = path.join(root, "docs");
 const failures = [];
 const fail = (message) => failures.push(message);
-
-function attributes(tag) {
-  return Object.fromEntries(
-    [...tag.matchAll(/([:\w-]+)(?:=["']([^"']*)["'])?/g)].map((match) => [
-      match[1].toLowerCase(),
-      match[2] ?? "",
-    ]),
-  );
-}
-
-function findTag(html, name, key, value) {
-  return [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, "gi"))]
-    .map((match) => attributes(match[0]))
-    .find((entry) => entry[key] === value);
-}
 
 function visibleText(html) {
   return html
