@@ -1,6 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const config = require("../project.config.js");
+const { findTag } = require("./html-attributes.cjs");
 
 const root = path.resolve(__dirname, "..");
 const docs = path.join(root, "docs");
@@ -68,9 +69,10 @@ for (const file of ["index.html", "examples/index.html", "api/index.html"]) {
     continue;
   }
   const html = fs.readFileSync(fullPath, "utf8");
-  if (!html.includes(`href="${config.pwa.manifestUrl}"`))
+  if (findTag(html, "link", "rel", "manifest")?.href !== config.pwa.manifestUrl)
     fail(`${file} is missing the configured manifest link`);
-  if (!/<meta\b[^>]*name="theme-color"[^>]*data-theme-color/.test(html))
+  const themeColor = findTag(html, "meta", "name", "theme-color");
+  if (!themeColor || !Object.hasOwn(themeColor, "data-theme-color"))
     fail(`${file} is missing dynamic theme-color metadata`);
   for (const forbidden of [
     "data-pwa-update",

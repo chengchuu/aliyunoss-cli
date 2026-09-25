@@ -48,3 +48,21 @@ test("finds JSON-LD after production HTML removes optional quotes", () => {
     [jsonLd],
   );
 });
+
+test("finds PWA metadata after production HTML removes optional quotes", () => {
+  const html = [
+    "<link rel=manifest href=/aliyunoss-cli/manifest.webmanifest>",
+    "<meta name=theme-color content=#0d6efd data-theme-color>",
+  ].join("");
+
+  assert.equal(
+    findTag(html, "link", "rel", "manifest").href,
+    "/aliyunoss-cli/manifest.webmanifest",
+  );
+  assert.ok(
+    Object.hasOwn(
+      findTag(html, "meta", "name", "theme-color"),
+      "data-theme-color",
+    ),
+  );
+});
