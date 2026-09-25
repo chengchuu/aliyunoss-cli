@@ -17,4 +17,14 @@ function findTag(html, name, key, value) {
     .find((entry) => entry[key] === value);
 }
 
-module.exports = { attributes, findTag };
+function findElementContents(html, name, key, value) {
+  return [
+    ...html.matchAll(
+      new RegExp(`<${name}\\b([^>]*)>([\\s\\S]*?)<\\/${name}>`, "gi"),
+    ),
+  ]
+    .filter((match) => attributes(match[1])[key] === value)
+    .map((match) => match[2]);
+}
+
+module.exports = { attributes, findElementContents, findTag };

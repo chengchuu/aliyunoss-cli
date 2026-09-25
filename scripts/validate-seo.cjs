@@ -1,7 +1,11 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const config = require("../project.config.js");
-const { attributes, findTag } = require("./html-attributes.cjs");
+const {
+  attributes,
+  findElementContents,
+  findTag,
+} = require("./html-attributes.cjs");
 
 const root = path.resolve(__dirname, "..");
 const docs = path.join(root, "docs");
@@ -106,15 +110,16 @@ function validatePage(label, file, expected) {
   if (h1s.length !== 1) fail(`${label}: expected one h1, found ${h1s.length}`);
   if (visibleText(html).length < 220)
     fail(`${label}: insufficient crawlable initial content`);
-  const jsonLd = [
-    ...html.matchAll(
-      /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi,
-    ),
-  ];
+  const jsonLd = findElementContents(
+    html,
+    "script",
+    "type",
+    "application/ld+json",
+  );
   if (!jsonLd.length) fail(`${label}: missing JSON-LD`);
   for (const entry of jsonLd) {
     try {
-      JSON.parse(entry[1]);
+      JSON.parse(entry);
     } catch (error) {
       fail(`${label}: invalid JSON-LD (${error.message})`);
     }
