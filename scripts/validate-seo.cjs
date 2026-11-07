@@ -1,26 +1,16 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const config = require("../project.config.js");
+const {
+  attributes,
+  findElementContents,
+  findTag,
+} = require("./html-attributes.cjs");
 
 const root = path.resolve(__dirname, "..");
 const docs = path.join(root, "docs");
 const failures = [];
 const fail = (message) => failures.push(message);
-
-function attributes(tag) {
-  return Object.fromEntries(
-    [...tag.matchAll(/([:\w-]+)(?:=["']([^"']*)["'])?/g)].map((match) => [
-      match[1].toLowerCase(),
-      match[2] ?? "",
-    ]),
-  );
-}
-
-function findTag(html, name, key, value) {
-  return [...html.matchAll(new RegExp(`<${name}\\b[^>]*>`, "gi"))]
-    .map((match) => attributes(match[0]))
-    .find((entry) => entry[key] === value);
-}
 
 function visibleText(html) {
   return html
@@ -120,15 +110,16 @@ function validatePage(label, file, expected) {
   if (h1s.length !== 1) fail(`${label}: expected one h1, found ${h1s.length}`);
   if (visibleText(html).length < 220)
     fail(`${label}: insufficient crawlable initial content`);
-  const jsonLd = [
-    ...html.matchAll(
-      /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi,
-    ),
-  ];
+  const jsonLd = findElementContents(
+    html,
+    "script",
+    "type",
+    "application/ld+json",
+  );
   if (!jsonLd.length) fail(`${label}: missing JSON-LD`);
   for (const entry of jsonLd) {
     try {
-      JSON.parse(entry[1]);
+      JSON.parse(entry);
     } catch (error) {
       fail(`${label}: invalid JSON-LD (${error.message})`);
     }

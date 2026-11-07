@@ -1,10 +1,4 @@
-import {
-  isSafePWAEnv,
-  isStandalonePWA,
-  listenMediaQueryChanges,
-  watchServiceWorkerUpdates,
-} from "mazey";
-import type { ServiceWorkerUpdateWatcher } from "mazey";
+import { isSafePWAEnv, isStandalonePWA, listenMediaQueryChanges } from "mazey";
 import type { SitePwaConfig } from "./runtime-config";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -103,45 +97,11 @@ function initializeInstallExperience(appName: string): () => void {
   };
 }
 
-function monitorUpdates(
-  registration: ServiceWorkerRegistration,
-): ServiceWorkerUpdateWatcher {
-  const notice = document.querySelector<HTMLElement>("[data-pwa-update]");
-  const button = document.querySelector<HTMLButtonElement>(
-    "[data-pwa-update-now]",
-  );
-  let reloadRequested = false;
-  const watcher = watchServiceWorkerUpdates(
-    registration,
-    navigator.serviceWorker,
-    {
-      onUpdateAvailable() {
-        if (notice) notice.hidden = false;
-        announce("A new website version is available.");
-      },
-      onControllerChange() {
-        if (notice) notice.hidden = true;
-        if (reloadRequested) window.location.reload();
-      },
-    },
-  );
-  button?.addEventListener("click", () => {
-    reloadRequested = watcher.activateWaiting();
-    if (reloadRequested) {
-      button.disabled = true;
-      announce("Updating the website now.");
-    }
-  });
-  return watcher;
-}
-
 async function registerServiceWorker(config: SitePwaConfig): Promise<void> {
   try {
-    const registration = await navigator.serviceWorker.register(
-      config.serviceWorkerUrl,
-      { scope: config.scope },
-    );
-    monitorUpdates(registration);
+    await navigator.serviceWorker.register(config.serviceWorkerUrl, {
+      scope: config.scope,
+    });
   } catch (error) {
     console.error(
       `Failed to register the ${config.appName} service worker.`,
