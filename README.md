@@ -11,8 +11,6 @@
 
 ## Install
 
-Install the package as a development dependency in the project that builds the directory you want to upload:
-
 ```bash
 npm install --save-dev aliyunoss-cli
 ```
